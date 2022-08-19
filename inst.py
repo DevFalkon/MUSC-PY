@@ -1,6 +1,8 @@
-import msc_bin.temp.cred as cred
+import msc_bin.temp.cred as cred, spotipy, re, os,subprocess, urllib.request
+from pytube import YouTube
+from spotipy.oauth2 import SpotifyClientCredentials
 
-def inst(query,urllibreq,YouTube,SpotifyClientCredentials,spotipy, re,os,subprocess):
+def inst(query, py):
     client_credentials_manager = SpotifyClientCredentials(client_id=cred.client_id, client_secret=cred.client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     artist_name = []
@@ -40,7 +42,7 @@ def inst(query,urllibreq,YouTube,SpotifyClientCredentials,spotipy, re,os,subproc
         if i not in "\"\\\'()":
             sng_name_temp+=i
     sng_name = sng_name_temp
-    html = urllibreq.urlopen(f"https://www.youtube.com/results?search_query={query}")
+    html = urllib.request.urlopen(f"https://www.youtube.com/results?search_query={query}")
     video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
     yt = YouTube(f"https://www.youtube.com/watch?v={video_ids[0]}")
     yt.streams.filter(file_extension='mp4', resolution='360p').first().download(filename=f'msc_bin\\temp\\{sng_name}.mp4')

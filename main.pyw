@@ -1,10 +1,5 @@
-import inst, sys, os
-import pygame as py
+import inst, sys, os, pygame as py
 from threading import Thread
-import spotipy, urllib.request as urllibreq, re
-from spotipy.oauth2 import SpotifyClientCredentials
-from pytube import YouTube
-import subprocess
 from gui import colours, fonts
 
 #pygame initialisation
@@ -81,7 +76,7 @@ while True:
                         play = True
 
         if event.type == py.KEYDOWN:
-            if 96<=event.key<=172:
+            if 96<=event.key<=172 or 48<=event.key<=57:
                 s_temp += chr(event.key)
             elif event.key == 32:
                 s_temp+= ' '
@@ -90,8 +85,7 @@ while True:
             elif event.key == 13 and s_temp != '':
                 s_name = s_temp
                 s_temp = ''
-                thread = Thread(target=inst.inst, args=(s_name,urllibreq,YouTube,
-                SpotifyClientCredentials,spotipy, re, os, subprocess))
+                thread = Thread(target=inst.inst, args=(s_name, py))
                 thread.start()
     if play:
         pause_play(screen, colours['blue'])
