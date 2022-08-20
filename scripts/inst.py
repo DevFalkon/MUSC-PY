@@ -1,9 +1,9 @@
-import msc_bin.temp.cred as cred, spotipy, re, os,subprocess, urllib.request
+import bin.cred.cred as cred, spotipy, re, os,subprocess, urllib.request
 from pytube import YouTube
 from spotipy.oauth2 import SpotifyClientCredentials
 
-def inst(query, py):
-    client_credentials_manager = SpotifyClientCredentials(client_id=cred.client_id, client_secret=cred.client_secret)
+def inst(query):
+    client_credentials_manager = SpotifyClientCredentials(client_id=cred.spot()[0], client_secret=cred.spot()[1])
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     artist_name = []
     track_name = []
@@ -45,13 +45,13 @@ def inst(query, py):
     html = urllib.request.urlopen(f"https://www.youtube.com/results?search_query={query}")
     video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
     yt = YouTube(f"https://www.youtube.com/watch?v={video_ids[0]}")
-    yt.streams.filter(file_extension='mp4', resolution='360p').first().download(filename=f'msc_bin\\temp\\{sng_name}.mp4')
+    yt.streams.filter(file_extension='mp4', resolution='360p').first().download(filename=f'bin\\temp\\{sng_name}.mp4')
     DETACHED_PROCESS = 0x00000008
-    subprocess.call(f'ffmpeg\\bin\\ffmpeg.exe -i "msc_bin\\temp\\{sng_name}.mp4" "msc_bin\\temp\\{sng_name}.mp3"', creationflags=DETACHED_PROCESS)
-    os.remove(f"msc_bin\\temp\\{sng_name}.mp4")
+    subprocess.call(f'ffmpeg\\bin\\ffmpeg.exe -i "bin\\temp\\{sng_name}.mp4" "bin\\temp\\{sng_name}.mp3"', creationflags=DETACHED_PROCESS)
+    os.remove(f"bin\\temp\\{sng_name}.mp4")
 
-    f = open(f"msc_bin\\temp\\{sng_name}.mp3", 'rb')
-    file = open(f'msc_bin\\{sng_name}.rick_roll', 'wb')
+    f = open(f"bin\\temp\\{sng_name}.mp3", 'rb')
+    file = open(f'bin\\{sng_name}.rick_roll', 'wb')
     
     while True:
         b = f.read(1)
@@ -61,4 +61,4 @@ def inst(query, py):
     f.close()
     file.close()
 
-    os.remove(f"msc_bin\\temp\\{sng_name}.mp3")
+    os.remove(f"bin\\temp\\{sng_name}.mp3")
