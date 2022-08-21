@@ -8,6 +8,8 @@ __STEP 1. INSTALL PYTON INSTALLER FROM PYTON.ORG (PYTHON 3.10)__
 
 In a browser go to [python.org](https://www.python.org/)
 
+click on downloads and choose python 3.10.x
+
 ![python org](https://user-images.githubusercontent.com/110911293/185777853-efc04853-189e-4abb-b74a-b5a60a6f59ed.png)
 
 __STEP 2. SAVE THE EXE IN THE DOWNLOADS FOLDER__
