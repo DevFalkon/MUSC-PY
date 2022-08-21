@@ -13,6 +13,9 @@ skip_track_colour = white
 previous_track_colour = white
 song_selected = False
 play  = False
+currently_playing = ''
+skip = False
+prev = False
 
 def play_pause_button(py,screen, width, height,mouse_x, mouse_y):
     global play_pause_colour, play
@@ -30,6 +33,7 @@ def skip_track_button(screen, width, height,mouse_x, mouse_y):
         skip_track_colour = light_grey
     else:
         skip_track_colour = white
+    return skip_track
 
 def previous_track_button(screen, width, height,mouse_x, mouse_y):
     global previous_track_colour
@@ -39,11 +43,12 @@ def previous_track_button(screen, width, height,mouse_x, mouse_y):
         previous_track_colour = light_grey
     else:
         previous_track_colour = white
+    return previous_track
 
 
 def event_manager(py, screen, width, height):
     #Declaring global variables
-    global play, x_cord, y_cord, search_term, play_pause_colour, song_selected
+    global play, x_cord, y_cord, search_term, play_pause_colour, song_selected, currently_playing,skip,prev
 
     mouse_x, mouse_y = py.mouse.get_pos()
     #song lsit to store all song names in alphabetical order (descending)
@@ -70,12 +75,13 @@ def event_manager(py, screen, width, height):
     gui.song_display(py,screen=screen,song_list=song_list,song_dict=song_dict)
     #rendering media controal buttons
     play_pause = play_pause_button(py,screen, width, height,mouse_x, mouse_y)
-    skip_track_button(screen, width, height,mouse_x, mouse_y)
-    previous_track_button(screen, width, height,mouse_x, mouse_y)
+    skip_track = skip_track_button(screen, width, height,mouse_x, mouse_y)
+    previous_track = previous_track_button(screen, width, height,mouse_x, mouse_y)
 
     #rendering the search bar
     gui.search_bar(py,screen,width,mouse_x,mouse_y)
     gui.search_display(py,screen,search_term)
+
     for event in py.event.get():
         if event.type == py.QUIT:
             py.quit()
@@ -98,13 +104,39 @@ def event_manager(py, screen, width, height):
                             py.mixer.music.play()
                             song_selected = True
                             play = True
+                            currently_playing = song
+
                     if song_selected:
+                        if skip_track:
+                            for song in song_list:
+                                if song == currently_playing and not skip:
+                                    if song_list.index(song)<len(song_list)-1:
+                                        currently_playing = song_list[song_list.index(song)+1]
+                                        py.mixer.music.unload()
+                                        py.mixer.music.load(f"bin\\{currently_playing}.rick_roll")
+                                        py.mixer.music.play()
+                                        skip = True
+                        
+                        if previous_track:
+                            for song in song_list:
+                                if song == currently_playing and not prev:
+                                    if song_list.index(song) >0:
+                                        currently_playing = song_list[song_list.index(song)-1]
+                                        py.mixer.music.unload()
+                                        py.mixer.music.load(f"bin\\{currently_playing}.rick_roll")
+                                        py.mixer.music.play()
+                                        prev = True
+
                         if play == True and play_pause:
                             py.mixer.music.pause()
                             play = False
+
                         elif play == False and play_pause:
                             py.mixer.music.unpause()
                             play = True
+        else:
+            skip = False
+            prev = False
 
         #User input to text for search
         if event.type == py.KEYDOWN:
