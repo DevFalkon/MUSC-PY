@@ -6,7 +6,7 @@ HOW TO INSTALL PYTHON
 
 __STEP 1. INSTALL PYTON INSTALLER FROM PYTON.ORG (PYTHON 3.10)__
 
-In a browser search [python.org](https://www.python.org/)
+In a browser go to [python.org](https://www.python.org/)
 
 ![python org](https://user-images.githubusercontent.com/110911293/185777853-efc04853-189e-4abb-b74a-b5a60a6f59ed.png)
 
