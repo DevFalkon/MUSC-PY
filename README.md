@@ -11,6 +11,8 @@ In a browser go to [python.org](https://www.python.org/)
 click on downloads and choose python 3.10.x
 
 ![python org](https://user-images.githubusercontent.com/110911293/185777853-efc04853-189e-4abb-b74a-b5a60a6f59ed.png)
+![python org download](https://user-images.githubusercontent.com/110911293/185778861-aadadfb7-682d-49bb-be83-b83541b10dd0.png)
+
 
 __STEP 2. SAVE THE EXE IN THE DOWNLOADS FOLDER__
 
