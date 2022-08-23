@@ -26,7 +26,7 @@ Double click on the exe file to run the installation
 
 ![open downlads folder](https://user-images.githubusercontent.com/110911293/185778051-908477fc-127e-468c-abd6-1aed22048d94.png)
 
-__STEP 4. WHEN THE UI OPENS CLICK ON CUSTOMIZE INSTALLATION__
+__STEP 4. WHEN THE SETUP OPENS CLICK ON CUSTOMIZE INSTALLATION__
 
 ![custom install](https://user-images.githubusercontent.com/110911293/185778141-93688610-9443-4e1f-bf84-f0239cc2dbd2.png)
 
