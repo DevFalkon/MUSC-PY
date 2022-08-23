@@ -1,6 +1,5 @@
 import math
 from pygame import gfxdraw
-import pygame as py
 
 colours={
     'red':(255,0,0),

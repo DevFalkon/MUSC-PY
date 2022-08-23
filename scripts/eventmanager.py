@@ -1,7 +1,6 @@
 import sys, os, time
 from scripts import inst,gui
 from threading import Thread
-from datetime import datetime
 
 #variables to be used as global
 x_cord,y_cord = 35, 50
