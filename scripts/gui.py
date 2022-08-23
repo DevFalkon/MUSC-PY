@@ -152,7 +152,7 @@ skip_time = 0
 elapsed_time = 0
 prev_time = 0
 
-def render_playback_time(screen, total_length,height,width):
+def render_playback_time(py,screen, total_length,height,width):
     font = py.font.SysFont('Comic Sans MS', 15)
     elapsed_time_sec = skip_time
     if elapsed_time_sec%60>=10:
@@ -183,7 +183,7 @@ mouse_x,mouse_y):
     if elapsed_time//1000-prev_time==1:
         prev_time = elapsed_time//1000
         skip_time+=1
-    render_playback_time(screen,int(total_length),height,width)
+    render_playback_time(py,screen,int(total_length),height,width)
 
     pixels_per_second = (width-40)/int(total_length)
     completed = skip_time*pixels_per_second
