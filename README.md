@@ -32,7 +32,7 @@ __STEP 4. WHEN THE SETUP OPENS CLICK ON CUSTOMIZE INSTALLATION__
 
 __STEP 5. CONFIGURE OPTIONSAL FEATURES__
 
-IF you want python idle click on tcl/tk and IDLE option
+If you want python idle click on tcl/tk and IDLE option
 
 Then click next
 
