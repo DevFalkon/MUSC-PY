@@ -77,16 +77,19 @@ def inst(query,py,screen):
     text='Writing to .rick_roll binary'
     completed +=10
 
-    f = open(f"bin\\temp\\{sng_name}.mp3", 'rb')
-    file = open(f'bin\\{sng_name}.rick_roll', 'wb')
-    
-    while True:
-        b = f.read(1)
-        if not b:
-            break
-        file.write(b)
-    f.close()
-    file.close()
+    try:
+        f = open(f"bin\\temp\\{sng_name}.mp3", 'rb')
+        file = open(f'bin\\{sng_name}.rick_roll', 'wb')
+        
+        while True:
+            b = f.read(1)
+            if not b:
+                break
+            file.write(b)
+        f.close()
+        file.close()
+    except:
+        pass
 
     text = 'cleaning'
     completed +=5

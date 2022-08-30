@@ -129,7 +129,8 @@ def event_manager(py, screen, width, height):
     gui.search_bar(py,screen,width,mouse_x,mouse_y)
     gui.search_display(py,screen,search_term)
     vol = gui.volume_bar(py, screen, width, height,mouse_x,mouse_y)
-    
+    loop = gui.loop_song(py, screen, mouse_x, mouse_y)
+
     if currently_playing:
         skip_time = gui.song_bar_overlay(py, screen, width, height, total_length, currently_playing,
         mouse_x,mouse_y)
@@ -138,13 +139,19 @@ def event_manager(py, screen, width, height):
         render_text(py,screen)
         
     if currently_playing:
-        if skip_time == int(total_length):
+        if skip_time == int(total_length) and not gui.loop:
             for song in song_list:
                 if song == currently_playing and not skip:
                     if song_list.index(song)<len(song_list)-1:
                         currently_playing = song_list[song_list.index(song)+1]
                         play_song(py,currently_playing,vol)
                         break
+                    elif song_list.index(song) == len(song_list)-1:
+                        currently_playing = song_list[0]
+                        play_song(py,currently_playing,vol)
+                        break
+        elif skip_time == int(total_length) and gui.loop:
+            play_song(py,currently_playing,vol)
 
     gui.currenly_playing_display(py, screen, currently_playing, height)
 
@@ -164,24 +171,38 @@ def event_manager(py, screen, width, height):
                     y_cord-=10
                 if event.button == 1: #1 for left click
                     for song in song_list:
-                        if song_dict[song][2]:
-                            play_song(py,song,vol)
-                            currently_playing = song
+                        if song != currently_playing:
+                            if song_dict[song][2]:
+                                gui.loop = False
+                                gui.loop_colour = gui.colours['text grey']
+                                play_song(py,song,vol)
+                                currently_playing = song
 
-                    if currently_playing:                            
+                    if currently_playing:          
                         if skip_track:
+                            gui.loop = False
+                            gui.loop_colour = gui.colours['text grey']
                             for song in song_list:
                                 if song == currently_playing and not skip:
                                     if song_list.index(song)<len(song_list)-1:
                                         currently_playing = song_list[song_list.index(song)+1]
                                         play_song(py,currently_playing,vol)
                                         skip = True
-                        
+                                    if song_list.index(song)==len(song_list)-1:
+                                        currently_playing = song_list[0]
+                                        play_song(py,currently_playing,vol)
+                                        skip = True
                         if previous_track:
+                            gui.loop = False
+                            gui.loop_colour = gui.colours['text grey']
                             for song in song_list:
                                 if song == currently_playing and not prev:
                                     if song_list.index(song) >0:
                                         currently_playing = song_list[song_list.index(song)-1]
+                                        play_song(py,currently_playing,vol)
+                                        prev = True
+                                    if song_list.index(song) == 0:
+                                        currently_playing = song_list[-1]
                                         play_song(py,currently_playing,vol)
                                         prev = True
 
@@ -192,6 +213,14 @@ def event_manager(py, screen, width, height):
                         elif play == False and play_pause:
                             py.mixer.music.unpause()
                             play = True
+                        
+                        if loop:
+                            if gui.loop == False:
+                                gui.loop = True
+                                gui.loop_colour = gui.colours['light grey']
+                            else:
+                                gui.loop = False
+                                gui.loop_colour = gui.colours['text grey']
         else:
             skip = False
             prev = False

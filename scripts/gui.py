@@ -1,6 +1,8 @@
 import math
 from pygame import gfxdraw
 
+user_font = 'Comic Sans MS'
+loop = False
 colours={
     'red':(255,0,0),
     'green': (0,255,0),
@@ -21,7 +23,7 @@ def gui_init(py):
     return display
     
 def search_display(py,screen,search_term):
-    font = py.font.SysFont('Comic Sans MS', 20)
+    font = py.font.SysFont(user_font, 20)
     if len(search_term)>37:
         search_term = search_term[len(search_term)-38::]
     text = font.render(search_term, True, colours['black'], colours['white'])
@@ -45,7 +47,7 @@ song_title_width = 300
 #renders the song names in the ui
 def song_display(py,screen, song_list, song_dict):
     global font_size, song_title_width
-    font = py.font.SysFont('Comic Sans MS', font_size)
+    font = py.font.SysFont(user_font, font_size)
     for song in song_list:
         if song_dict[song][1] >=10: #1=y coordinate in the list
             #colours--> text colour, background colour
@@ -153,7 +155,7 @@ elapsed_time = 0
 prev_time = 0
 
 def render_playback_time(py,screen, total_length,height,width):
-    font = py.font.SysFont('Comic Sans MS', 15)
+    font = py.font.SysFont(user_font, 15)
     elapsed_time_sec = skip_time
     if elapsed_time_sec%60>=10:
         elapsed_time_str = f"{elapsed_time_sec//60}:{elapsed_time_sec%60}"
@@ -227,9 +229,24 @@ def volume_bar(py, screen, width, height,mouse_x,mouse_y):
     return vol
 
 def currenly_playing_display(py, screen, currently_playing, height):
-    font = py.font.SysFont('Comic Sans MS', 25)
+    font = py.font.SysFont(user_font, 25)
     if len(currently_playing)>16:
         currently_playing = currently_playing[:17]+'...'
     curr_playing = font.render(currently_playing, True, colours['white'],
     colours['text grey'])
     screen.blit(curr_playing, (20, height-back_height+60))
+
+
+loop_colour = colours['text grey']
+def loop_song(py, surface, mouse_x, mouse_y):
+    global song_title_width, loop_colour, loop
+
+    loop_logo = py.image.load('dependancies\\loop_grey.png')
+    x_cord = 470
+    y_cord = 557
+    draw_circle(surface, x_cord, y_cord, song_disp_rad+5, loop_colour)
+    surface.blit(loop_logo, (455,541))
+    dist = circle_dist(x_cord, y_cord, mouse_x, mouse_y)
+    if dist<(song_disp_rad+5):
+        return True
+    return False
