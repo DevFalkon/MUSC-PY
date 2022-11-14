@@ -4,12 +4,14 @@ import math
 
 row_r,col_r = [0.075,0.775,0.15],[0.2,0.8]
 
-with open("settings.txt", 'r') as file:
-    dat = [eval(i) for i in file.read().split('\n') if i]
 
+font_name = "graphics\\Inter\\Inter-Regular.ttf"
+font_size = 24
+font_offset = 4
+header_add = 20
+header_offset = 0
 
-font_name = dat[0]['Font name']
-font_size = dat[1]['Font size']
+search_font_offset = 4
 
 elem_height = 40
 

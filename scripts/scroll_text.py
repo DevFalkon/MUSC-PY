@@ -1,5 +1,5 @@
 import pygame as py
-from scripts.gui import colours, font_name, font_size, col_r, row_r
+from scripts.gui import colours, font_name, font_size, col_r, row_r, font_offset, header_add, header_offset
 from scripts.gui import curr_song
 
 
@@ -18,6 +18,7 @@ class scroll:
         self.bttn = None
         self.y_add = 80
         self.header_h = self.elem_height+14
+        self.offset = font_offset
 
     
     def render_header(self,x):
@@ -25,11 +26,11 @@ class scroll:
         py.draw.rect(self.screen,colours('black'),
         rect=(x+3,self.height*row_r[0]+self.y_add,self.width*col_r[1]-16,self.header_h))
         #Displaying header text
-        font = py.font.SysFont(font_name, font_size+10)
+        font = py.font.Font(font_name, font_size+header_add)
         txt = font.render('NAME', True, colours('white'))
-        self.screen.blit(txt, (x+38, self.height*row_r[0]+self.y_add))
+        self.screen.blit(txt, (x+38, self.height*row_r[0]+self.y_add+header_offset))
         txt = font.render('ARTIST', True, colours('white'))
-        self.screen.blit(txt,(x+538, self.height*row_r[0]+self.y_add))
+        self.screen.blit(txt,(x+538, self.height*row_r[0]+self.y_add+header_offset))
         
         #Drwaing top and bottom white lines for the header
         py.draw.rect(self.screen, colours('white'), 
@@ -40,7 +41,7 @@ class scroll:
 
     def render(self,mouse_x,mouse_y):
         
-        font = py.font.SysFont(font_name, font_size)
+        font = py.font.Font(font_name, font_size)
         x,y = self.width*col_r[0],self.height*row_r[0]+self.y_add+self.header_h
 
         py.draw.rect(self.screen,colours('black'),
@@ -73,7 +74,7 @@ class scroll:
                 
                 text = font.render(song_name, True, colours('white'))
                 
-                self.screen.blit(text,(x+38, y+self.elem_height*ind+3+self.scroll_y))
+                self.screen.blit(text,(x+38, y+self.elem_height*ind+3+self.scroll_y+self.offset))
 
                 for track_data in self.iterable:
                     if track_data['name'] == song_name:
@@ -81,7 +82,7 @@ class scroll:
                         break
                 text = font.render(artist_name, True, colours('white'))
 
-                self.screen.blit(text,(x+538, y+self.elem_height*ind+self.scroll_y+3))
+                self.screen.blit(text,(x+538, y+self.elem_height*ind+self.scroll_y+3+self.offset))
         
 
         if self.update_header:

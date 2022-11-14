@@ -1,2 +1,0 @@
-{'Font name':'Comic Sans MS'}
-{'Font size':23}

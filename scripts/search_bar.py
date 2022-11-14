@@ -1,5 +1,5 @@
 import pygame as py
-from scripts.gui import colours, draw_circle, font_name,font_size, col_r, row_r
+from scripts.gui import colours, draw_circle, font_name,font_size, col_r, row_r, search_font_offset
 
 class searchbar:
 
@@ -8,7 +8,7 @@ class searchbar:
         self.height = height
         self.screen = screen
         self.search_term = 'search'
-        self.font = py.font.SysFont(font_name, font_size)
+        self.font = py.font.Font(font_name, font_size)
 
     def render(self) -> None:
         rad = int(self.height*row_r[0]*0.75//2)
@@ -20,5 +20,5 @@ class searchbar:
             text = self.font.render(self.search_term, True, colours('grey'))
         else:
             text = self.font.render(self.search_term, True, colours('black'))
-        self.screen.blit(text,(self.width*col_r[0]+rad,7))
+        self.screen.blit(text,(self.width*col_r[0]+rad,7+search_font_offset))
         py.display.update(py.Rect(self.width*col_r[0]-2,7,self.width*0.45+2*rad+5,rad*2+1))

@@ -1,6 +1,6 @@
 import urllib.request
 
-with urllib.request.urlopen('https://github.com/DevFalkon/MUSC-PY/releases/tag/Relese') as response:
+with urllib.request.urlopen('https://github.com/DevFalkon/MUSC-PY/releases/latest') as response:
    html = str(response.read()).split()
    for ind, elem in enumerate(html):
     if elem == 'MUSC-PY':
