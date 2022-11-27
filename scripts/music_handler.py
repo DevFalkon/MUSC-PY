@@ -104,12 +104,21 @@ def inst(query, sng_type = 'lyrics'):
                 if t_name in vid_t:
                     yt = id_ls.append(vid)
                     cnt+=1
+            
+            if len(id_ls) == 0:
+                os.remove(f'data\\track_art\\{track_name}.jpg')
+                print('no result')
+                return
                 
             yt = None
             err = 0
             while not yt:
                 yt = find_result(duration, id_ls, err)
                 err+=2
+                if err >15:
+                    os.remove(f'data\\track_art\\{track_name}.jpg')
+                    print('no accurate res')
+                    return
             id_ls = None
             yt.streams.filter().get_lowest_resolution().download(filename=f'data\\temp\\{track_name}.mp4')
             
@@ -123,7 +132,7 @@ def inst(query, sng_type = 'lyrics'):
                 os.rename(f"data\\temp\\{track_name}.mp3", f"data\\tracks\\{track_name}.rick_roll")
 
             #Saving song info in a json file
-            update_info(track_name, artist_name,duration+err)
+            update_info(track_name, artist_name,yt.length)
             
             update = True
     except:
